@@ -26,8 +26,11 @@ class {{class}} extends AbstractWidget
         $this->getConfig();
         //
 
-        return view('{{view}}', [
-            'config' => $this->config,
+        return view()->first([
+            'theme::{{view}}',
+            '{{view}}'
+        ], [
+            'config' => $this->config
         ]);
     }
 
