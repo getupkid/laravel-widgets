@@ -80,7 +80,7 @@ class JavascriptFactory
      */
     protected function useJquery()
     {
-        return $this->widgetFactory->app->config('laravel-widgets.use_jquery_for_ajax_calls', false);
+        return $this->widgetFactory->app->config('widgets.use_jquery_for_ajax_calls', false);
     }
 
     /**

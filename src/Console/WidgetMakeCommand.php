@@ -91,7 +91,7 @@ class WidgetMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         $stubName = $this->option('plain') ? 'widget_plain' : 'widget';
-        $stubPath = $this->laravel->make('config')->get('laravel-widgets.'.$stubName.'_stub');
+        $stubPath = $this->laravel->make('config')->get('widgets.'.$stubName.'_stub');
 
         // for BC
         if (is_null($stubPath)) {
@@ -160,7 +160,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $namespace = config('laravel-widgets.default_namespace', $rootNamespace.'\Widgets');
+        $namespace = config('widgets.default_namespace', $rootNamespace.'\Widgets');
 
         if (!Str::startsWith($namespace, $rootNamespace)) {
             throw new RuntimeException("You can not use the generator if the default namespace ($namespace) does not start with application namespace ($rootNamespace)");

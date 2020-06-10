@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Blade;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    // Test
     /**
      * Register the service provider.
      *
@@ -19,7 +18,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/config.php', 'laravel-widgets'
+            __DIR__.'/config/config.php', 'widgets'
         );
 
         $this->app->bind('arrilot.widget', function () {
@@ -57,13 +56,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/config.php' => config_path('laravel-widgets.php'),
+            __DIR__.'/config/config.php' => config_path('widgets.php'),
         ]);
 
         $routeConfig = [
             'namespace'  => 'Arrilot\Widgets\Controllers',
             'prefix'     => 'arrilot',
-            'middleware' => $this->app['config']->get('laravel-widgets.route_middleware', []),
+            'middleware' => $this->app['config']->get('widgets.route_middleware', []),
         ];
 
         if (!$this->app->routesAreCached()) {
