@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Blade;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
+    // Test
     /**
      * Register the service provider.
      *
