@@ -11,7 +11,11 @@ class {{class}} extends AbstractWidget
      *
      * @var array
      */
-    protected $config = [];
+    public $config = [];
+
+    public $name = "The name of the widget";
+
+    public $description = "A short description of the widget";
 
     /**
      * Treat this method as a controller action.
@@ -19,10 +23,22 @@ class {{class}} extends AbstractWidget
      */
     public function run()
     {
+        $this->getConfig();
         //
 
         return view('{{view}}', [
             'config' => $this->config,
         ]);
+    }
+
+    /**
+     * Get config from database and merge with widget defaults.
+     */
+    protected function getConfig()
+    {
+        $config = config('widgets.model')::whereNamespace(__CLASS__)->first();
+        if ($config) {
+            $this->config = array_merge($this->config, $config->config);
+        }
     }
 }

@@ -6,12 +6,28 @@ use Arrilot\Widgets\AbstractWidget;
 
 class {{class}} extends AbstractWidget
 {
+    public $name = "The name of the widget";
+
+    public $description = "A short description of the widget";
+    
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.
      */
     public function run()
     {
+        $this->getConfig();
         //
+    }
+
+    /**
+     * Get config from database and merge with widget defaults.
+     */
+    protected function getConfig()
+    {
+        $config = config('widgets.model')::whereNamespace(__CLASS__)->first();
+        if ($config) {
+            $this->config = array_merge($this->config, $config->config);
+        }
     }
 }

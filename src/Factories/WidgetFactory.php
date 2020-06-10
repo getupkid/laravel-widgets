@@ -12,6 +12,7 @@ class WidgetFactory extends AbstractWidgetFactory
     public function run()
     {
         $args = func_get_args();
+
         $this->instantiateWidget($args);
 
         $content = $this->getContentFromCache($args);
@@ -20,6 +21,8 @@ class WidgetFactory extends AbstractWidgetFactory
             $content .= $this->javascriptFactory->getReloader($timeout, $this->widget->encryptParams);
             $content = $this->wrapContentInContainer($content);
         }
+
+        $content = $this->widgetContainer($content);
 
         return $this->convertToViewExpression($content);
     }
@@ -66,10 +69,12 @@ class WidgetFactory extends AbstractWidgetFactory
      */
     protected function getContentFromCache($args)
     {
-        if ($cacheTime = (float) $this->getCacheTime()) {
-            return $this->app->cache($this->widget->cacheKey($args), $cacheTime, $this->widget->cacheTags(), function () {
-                return $this->getContent();
-            });
+        if (app()->environment() == 'production') {
+            if ($cacheTime = (float) $this->getCacheTime()) {
+                return $this->app->cache($this->widget->cacheKey($args), $cacheTime, $this->widget->cacheTags(), function () {
+                    return $this->getContent();
+                });
+            }
         }
 
         return $this->getContent();

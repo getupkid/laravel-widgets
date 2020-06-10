@@ -9,6 +9,7 @@ use Arrilot\Widgets\Misc\InvalidWidgetClassException;
 use Arrilot\Widgets\Misc\ViewExpressionTrait;
 use Arrilot\Widgets\WidgetId;
 use Illuminate\Support\Str;
+use Illuminate\View\ComponentAttributeBag;
 
 abstract class AbstractWidgetFactory
 {
@@ -181,6 +182,39 @@ abstract class AbstractWidgetFactory
         }
 
         return '<'.$container['element'].' id="'.$this->javascriptFactory->getContainerId().'" '.$container['attributes'].'>'.$content.'</'.$container['element'].'>';
+    }
+
+    /**
+     * Wrap the given content in a better container.
+     *
+     * @param $content
+     *
+     * @return string
+     */
+    protected function widgetContainer($content)
+    {
+        $attributes = new ComponentAttributeBag([
+            'class' => 'widget widget-' . \Str::slug($this->widget->title),
+            'id' => $this->widget->id ?? null
+        ]);
+
+        $wrapper = $this->widget->wrapper ?? 'div';
+
+        $html = "<{$wrapper} {$attributes->merge($this->widget->attributes ?? [])}>";
+
+        $title = $this->widget->config['title'] ?? $this->widget->title;
+        
+        $title = "<h1 class=\"widget-title\">{$title}</h1>";
+
+        if(property_exists($this->widget, 'hideTitle') && $this->widget->hideTitle) {
+            $title = '';
+        }
+
+        $html .= $title;
+
+        $html .= "<div class=\"widget-content\">{$content}</div></{$wrapper}>";
+
+        return $html;
     }
 
     /**

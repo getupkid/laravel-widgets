@@ -40,7 +40,34 @@ abstract class AbstractWidget
      *
      * @var array
      */
-    protected $config = [];
+    public $config = [];
+
+     /**
+     * The widget title.
+     */
+    public $title = "";
+
+    /**
+     * The widget description.
+     */
+    public $description = "";
+
+    /**
+     * Hide the widget title on output
+     */
+    public $hideTitle = false;
+
+    /**
+     * Set the widget wrapper element. Default = div
+     */
+    public $wrapper = null;
+
+    /**
+     * Add attributes to the widget wrapper
+     */
+    public $attributes = [
+        //
+    ];
 
     /**
      * Constructor.
