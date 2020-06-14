@@ -210,6 +210,10 @@ abstract class AbstractWidgetFactory
             $title = '';
         }
 
+        if(isset($this->widget->config['hide-title']) && $this->widget->config['hide-title']) {
+            $title = '';
+        }
+
         $html .= $title;
 
         $html .= "<div class=\"widget-content\">{$content}</div></{$wrapper}>";
