@@ -43,8 +43,8 @@ class {{class}} extends AbstractWidget
         $this->setStyles();
 
         return view()->first([
-            'theme::widgets.{{view}}',
-            'widgets.{{view}}'
+            'theme::{{view}}',
+            '{{view}}'
         ], [
             'config' => $this->config
         ]);
