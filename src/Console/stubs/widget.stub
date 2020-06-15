@@ -2,6 +2,7 @@
 
 namespace {{namespace}};
 
+use App\Facades\Theme;
 use Arrilot\Widgets\AbstractWidget;
 
 class {{class}} extends AbstractWidget
@@ -24,16 +25,48 @@ class {{class}} extends AbstractWidget
     public $description = "A short description of the widget";
 
     /**
+     * The widget attributes.
+     *
+     * @var array
+     */
+    public $attributes = [
+        //
+    ];
+
+    /**
      * Treat this method as a controller action.
      * Return view() or other content to display.
      */
     public function run()
     {
+        $this->setConfig();
+        $this->setStyles();
+
         return view()->first([
             'theme::widgets.{{view}}',
             'widgets.{{view}}'
         ], [
             'config' => $this->config
         ]);
+    }
+
+    /**
+     * Use this method to set config defaults that uses 
+     * dynamic theme settings. 
+     * e.g. $this->config['color'] = setting('text-color')
+     *
+     */
+    protected function setConfig()
+    {
+        //
+    }
+
+    /**
+     * Set dynamic styles for this widget.
+     *
+     */
+    public function setStyles()
+    {
+        // Theme::setInlineStyle();
     }
 }
