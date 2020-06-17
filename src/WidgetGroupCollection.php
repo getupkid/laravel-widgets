@@ -35,7 +35,7 @@ class WidgetGroupCollection
         if (isset($this->groups[$name])) {
             return $this->groups[$name];
         }
-
+        
         $this->groups[$name] = new WidgetGroup($name, $this->app);
 
         return $this->groups[$name];

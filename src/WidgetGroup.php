@@ -77,7 +77,7 @@ class WidgetGroup
     public function display()
     {
         ksort($this->widgets);
-
+        dump($this->widgets);
         $output = '';
         $index = 0;
         $count = $this->count();
