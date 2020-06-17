@@ -203,8 +203,8 @@ abstract class AbstractWidgetFactory
         $html = "<{$wrapper} {$attributes->merge($this->widget->attributes ?? [])}>";
 
         $title = $this->widget->config['title'] ?? $this->widget->title;
-        
-        $title = "<h1 class=\"widget-title\">{$title}</h1>";
+
+        $title = "<h1 class=\"widget-title {$this->widget->titleClass}\">{$title}</h1>";
 
         if(property_exists($this->widget, 'hideTitle') && $this->widget->hideTitle) {
             $title = '';

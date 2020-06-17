@@ -48,6 +48,11 @@ abstract class AbstractWidget
     public $title = "";
 
     /**
+     * The widget title class.
+     */
+    public $titleClass = "";
+
+    /**
      * The widget description.
      */
     public $description = "";
