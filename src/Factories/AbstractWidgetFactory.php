@@ -194,24 +194,23 @@ abstract class AbstractWidgetFactory
     protected function widgetContainer($content)
     {
         $attributes = new ComponentAttributeBag([
-            'class' => 'widget widget-' . \Str::slug($this->widget->title),
-            'id' => $this->widget->id ?? null
+            "class" => "widget widget-{$this->widget->config["id"]} widget-" . \Str::slug($this->widget->title)
         ]);
 
-        $wrapper = $this->widget->wrapper ?? 'div';
+        $wrapper = $this->widget->wrapper ?? "div";
 
         $html = "<{$wrapper} {$attributes->merge($this->widget->attributes ?? [])}>";
 
-        $title = $this->widget->config['title'] ?? $this->widget->title;
+        $title = $this->widget->config["title"] ?? $this->widget->title;
 
         $title = "<h1 class=\"widget-title {$this->widget->titleClass}\">{$title}</h1>";
 
-        if(property_exists($this->widget, 'hideTitle') && $this->widget->hideTitle) {
-            $title = '';
+        if(property_exists($this->widget, "hideTitle") && $this->widget->hideTitle) {
+            $title = "";
         }
 
-        if(isset($this->widget->config['hide-title']) && $this->widget->config['hide-title']) {
-            $title = '';
+        if(isset($this->widget->config["hide-title"]) && $this->widget->config["hide-title"]) {
+            $title = "";
         }
 
         $html .= $title;
