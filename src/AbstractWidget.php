@@ -155,7 +155,7 @@ abstract class AbstractWidget
      * @param array $defaults
      */
     protected function addConfigDefaults(array $defaults)
-    {
+    {   
         $this->config = array_merge($this->config, $defaults);
     }
 
