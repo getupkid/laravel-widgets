@@ -34,12 +34,21 @@ class {{class}} extends AbstractWidget
     ];
 
     /**
+     * The class constructor
+     */
+    public function __construct($config = [])
+    {
+        // $this->addConfigDefaults([]);
+
+        parent::__construct($config);
+    }
+
+    /**
      * Treat this method as a controller action.
      * Return view() or other content to display.
      */
     public function run()
     {
-        $this->setConfig();
         $this->setStyles();
 
         return view()->first([
@@ -48,17 +57,6 @@ class {{class}} extends AbstractWidget
         ], [
             "config" => $this->config
         ]);
-    }
-
-    /**
-     * Use this method to set config defaults that uses 
-     * dynamic theme settings. 
-     * e.g. $this->config["color"] = setting("text-color")
-     *
-     */
-    protected function setConfig()
-    {
-        //
     }
 
     /**

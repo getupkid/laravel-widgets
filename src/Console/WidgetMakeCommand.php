@@ -221,10 +221,10 @@ class WidgetMakeCommand extends GeneratorCommand
         $name = str_replace($this->laravel->getNamespace(), '', $this->argument('name'));
         $name = str_replace('\\', '/', $name);
 
-        // convert to snake_case part by part to avoid unexpected underscores.
+        // convert to slug-case part by part to avoid unexpected underscores.
         $nameArray = explode('/', $name);
         array_walk($nameArray, function (&$part) {
-            $part = Str::snake($part);
+            $part = Str::of($part)->snake()->slug();
         });
 
         return implode('/', $nameArray);

@@ -63,6 +63,11 @@ abstract class AbstractWidget
     public $hideTitle = false;
 
     /**
+     * Set the widget title element. Default = h2
+     */
+    public $titleElement = null;
+
+    /**
      * Set the widget wrapper element. Default = div
      */
     public $wrapper = null;
@@ -78,11 +83,22 @@ abstract class AbstractWidget
      * Constructor.
      *
      * @param array $config
+     * @param array $attributes
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config = [], array $attributes = [])
     {
         foreach ($config as $key => $value) {
+            if(is_array($value)) {
+                $value = array_merge($this->config[$key], $value);
+            }
             $this->config[$key] = $value;
+        }
+        
+        foreach ($attributes as $key => $value) {
+            if(is_array($value)) {
+                $value = array_merge($this->attributes[$key], $value);
+            }
+            $this->attributes[$key] = $value;
         }
     }
 
@@ -141,5 +157,15 @@ abstract class AbstractWidget
     protected function addConfigDefaults(array $defaults)
     {
         $this->config = array_merge($this->config, $defaults);
+    }
+
+    /**
+     * Add defaults to attributes array.
+     *
+     * @param array $defaults
+     */
+    protected function addAttributesDefaults(array $defaults)
+    {
+        $this->attributes = array_merge($this->attributes, $defaults);
     }
 }

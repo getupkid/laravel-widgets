@@ -177,6 +177,7 @@ abstract class AbstractWidgetFactory
         }
 
         $container = $this->widget->container();
+        
         if (empty($container['element'])) {
             $container['element'] = 'div';
         }
@@ -199,11 +200,13 @@ abstract class AbstractWidgetFactory
 
         $wrapper = $this->widget->wrapper ?? "div";
 
+        $titleElement = $this->widget->titleElement ?? "h2";
+
         $html = "<{$wrapper} {$attributes->merge($this->widget->attributes ?? [])}>";
 
         $title = $this->widget->config["title"] ?? $this->widget->title;
 
-        $title = "<h1 class=\"widget-title {$this->widget->titleClass}\">{$title}</h1>";
+        $title = "<{$titleElement} class=\"widget-title {$this->widget->titleClass}\">".__($title)."</{$titleElement}>";
 
         if(property_exists($this->widget, "hideTitle") && $this->widget->hideTitle) {
             $title = "";
