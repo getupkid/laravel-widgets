@@ -4,6 +4,10 @@ namespace Arrilot\Widgets;
 
 abstract class AbstractWidget
 {
+    public $namespace;
+
+    public $id;
+
     /**
      * The number of seconds before each reload.
      * False means no reload at all.
@@ -80,13 +84,20 @@ abstract class AbstractWidget
     ];
 
     /**
+     * Add Customiser array to the widget
+     */
+    public $customiser = [];
+
+    /**
      * Constructor.
      *
      * @param array $config
      * @param array $attributes
      */
-    public function __construct(array $config = [], array $attributes = [])
+    public function __construct(array $config = [], array $attributes = [], $id = null)
     {
+        $this->id = $id;
+        
         foreach ($config as $key => $value) {
             if(is_array($value)) {
                 $value = array_merge($this->config[$key], $value);
@@ -167,5 +178,15 @@ abstract class AbstractWidget
     protected function addAttributesDefaults(array $defaults)
     {
         $this->attributes = array_merge($this->attributes, $defaults);
+    }
+
+    /**
+     * Set Customiser attributes array.
+     *
+     * @param array $attributes
+     */
+    protected function addCustomiserAttributes(array $attributes)
+    {
+        $this->customiser = array_merge($this->customiser, $attributes);
     }
 }
