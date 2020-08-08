@@ -46,7 +46,7 @@ abstract class AbstractWidget
      */
     public $config = [];
 
-     /**
+    /**
      * The widget title.
      */
     public $title = "";
@@ -97,20 +97,39 @@ abstract class AbstractWidget
     public function __construct(array $config = [], array $attributes = [], $id = null)
     {
         $this->id = $id;
-        
+
         foreach ($config as $key => $value) {
-            if(is_array($value)) {
+            if (is_array($value)) {
                 $value = array_merge($this->config[$key], $value);
             }
             $this->config[$key] = $value;
         }
-        
+
         foreach ($attributes as $key => $value) {
-            if(is_array($value)) {
+            if (is_array($value)) {
                 $value = array_merge($this->attributes[$key], $value);
             }
             $this->attributes[$key] = $value;
         }
+
+        // Add Title input to begining every widget
+        array_unshift($this->customiser, [
+            "target" => "title-color",
+            "label" => "Title Color",
+            "default" => $this->config["title-color"] ?? "#333333",
+            "input" => "color",
+            "name" => "config[title-color]"
+        ]);
+
+        array_unshift($this->customiser, [
+            "target" => "title",
+            "label" => "Title",
+            "default" => $this->config["title"] ?? $this->title,
+            "input" => "text",
+            "name" => "config[title]"
+        ]);
+
+        $this->customiser();
     }
 
     /**
@@ -147,7 +166,7 @@ abstract class AbstractWidget
      */
     public function cacheKey(array $params = [])
     {
-        return 'arrilot.widgets.'.serialize($params);
+        return 'arrilot.widgets.' . serialize($params);
     }
 
     /**
@@ -161,12 +180,22 @@ abstract class AbstractWidget
     }
 
     /**
+     * Customiser method
+     *
+     * @return array
+     */
+    public function customiser()
+    {
+        //
+    }
+
+    /**
      * Add defaults to configuration array.
      *
      * @param array $defaults
      */
     protected function addConfigDefaults(array $defaults)
-    {   
+    {
         $this->config = array_merge($this->config, $defaults);
     }
 

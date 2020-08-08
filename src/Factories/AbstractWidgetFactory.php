@@ -206,7 +206,7 @@ abstract class AbstractWidgetFactory
 
         $title = $this->widget->config["title"] ?? $this->widget->title;
 
-        $title = "<{$titleElement} class=\"widget-title {$this->widget->titleClass}\">".__($title)."</{$titleElement}>";
+        $title = "<{$titleElement} class=\"widget-title {$this->widget->titleClass}\" data-theme=\"title\" data-title-color='[\"color\"]'>".__($title)."</{$titleElement}>";
 
         if(property_exists($this->widget, "hideTitle") && $this->widget->hideTitle) {
             $title = "";
