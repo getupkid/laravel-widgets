@@ -2,6 +2,8 @@
 
 namespace Arrilot\Widgets;
 
+use Arrilot\Widgets\Factories\WidgetFactory;
+
 abstract class AbstractWidget
 {
     public $namespace;
